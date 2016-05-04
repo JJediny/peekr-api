@@ -7,19 +7,19 @@ Log in to Peekr [https://peekr.scalock.com](https://peekr.scalock.com) and Get u
 ![Peekr Api](img/peekr_api.png?raw=true "Peek API")
 ### Step 2
 Set `Athorization` header Basic Auth using user name and password 
-```json
+```
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
 ```
 
 ### Step 3 
 #### [GET /registries](#registries)
 Get the registry id you want to use
-```json
+```
     GET https://peekr.scalock.com/registries
 ```
 
 ### Step 4
-#### [POST /scan](#scan)
+#### [POST /scan](#scan-image)
 Scan your image if you know its repository and tag, if not use [`/repositories`](#repositories) and [`/repositories/:image_name/tags`](#repository-tags) for finding image for scanning
 ```json
     POST https://peekr.scalock.com/scan
@@ -32,7 +32,7 @@ Scan your image if you know its repository and tag, if not use [`/repositories`]
 ```
 ### Step 5
 Get detailed scan results for the image using `scan_id` received from scanning the image
-```json
+```
     GET https://peekr.scalock.com/user_scans/<scanned_image_id>
 ```
 
@@ -44,8 +44,8 @@ Get detailed scan results for the image using `scan_id` received from scanning t
     - [POST](#post-repos)
 - [Repository tags](#repository-tags)
     - [POST](#post-repository-tags)
-- [Scan](#scan)
-    - [POST](#post-scan-image)
+- [Scan Image](#scan-image)
+    - [POST](#post-scan)
 - [Scan Results](#scan-results)
     - [GET](#get-scan-results)    
 - [User Scans](#User-Scans)
@@ -60,7 +60,7 @@ Registries GET request return all saved registries for current user.
 By default Docker Hub and Quay.io.
 
 ###### Request (example)
-```json
+```
     Request URL:https://peekr.scalock.com/registries
     Request Method:GET
     
@@ -156,7 +156,7 @@ Returns all repository tags.
 ```
 
 ###### Response (example)
-```json
+```
 [
   "2.2.7",
   ...
@@ -173,7 +173,7 @@ Returns all repository tags.
 Returns all repository tags.
 
 ###### Request (example)
-```json
+```
     Request URL:https://peekr.scalock.com/scan
     Request Method:POST
     
@@ -219,7 +219,7 @@ Will return `scan` result and `scan_results`. `scan_results` include:
 `SCAN_RESULTS`: all vulnerabilities found nested by file/package they affect 
 `PROFILE_RESULTS`: image profiling at run time results. including cpu usage, network connection attempts, executable files ran and etc.
 ###### Request (example)
-```json
+```
     Request URL:https://peekr.scalock.com/user_scans/4KLuSmKc3IAafUHWLR1e
     Request Method:GET
     
@@ -260,7 +260,7 @@ Will return `scan` result and `scan_results`. `scan_results` include:
 ###### Description
 Returns all user performed scans. 
 ###### Request (example)
-```json
+```
     Request URL:https://peekr.scalock.com/user_scans
     Request Method:GET
 ```
@@ -301,7 +301,6 @@ Returns all user performed scans.
     "error_msg": "",
     "reused_scan": false
   },
- ...
 ]
 
 ```
