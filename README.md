@@ -19,7 +19,7 @@ Get the registry id you want to use
 ```
 
 ### Step 4
-#### [POST /scan](#scan-image)
+#### [POST /scan](#scan)
 Scan your image if you know its repository and tag, if not use [`/repositories`](#repositories) and [`/repositories/:image_name/tags`](#repository-tags) for finding image for scanning
 ```json
     POST https://peekr.scalock.com/scan
@@ -44,7 +44,7 @@ Get detailed scan results for the image using `scan_id` received from scanning t
     - [POST](#post-repos)
 - [Repository tags](#repository-tags)
     - [POST](#post-repository-tags)
-- [Scan Image](#scan-image)
+- [Scan](#scan)
     - [POST](#post-scan)
 - [Scan Results](#scan-results)
     - [GET](#get-scan-results)    
@@ -130,7 +130,6 @@ Will return search results for the `search` field. Repository POST will return 1
       "is_trusted": false,
       "is_public": false
     },
-    ...
   ]
 }
 
@@ -166,7 +165,7 @@ Returns all repository tags.
 ]
 ```
 
-## Scan Image
+## Scan
 #### POST /scan
 
 ###### Description
@@ -226,7 +225,7 @@ Will return `scan` result and `scan_results`. `scan_results` include:
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
 ```
 ###### Response (example)
-```json
+```
 {
   "scan":{"scan_id": "4KLuSmKc3IAafUHWLR1e", "image_id": "sha256:2af0a84bf165c291e2033327584a67158b5befe2fa2d739e13f6c8c71998b634", "image": "mongo",…},
   "scan_results": [
