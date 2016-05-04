@@ -47,7 +47,7 @@ Get detailed scan results for the image using `scan_id` received from scanning t
 - [Scan](#scan)
     - [POST](#post-scan-1)
 - [Scan Results](#scan-results)
-    - [GET](##get-user_scansscan_id)    
+    - [GET](#get-user_scansscan_id)    
 - [User Scans](#user-scans)
     - [GET](#get-user_scans)
 
