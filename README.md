@@ -39,17 +39,17 @@ Get detailed scan results for the image using `scan_id` received from scanning t
 
 ## API
 - [Registries](#registries)
-    - [GET](#get-registries)
+    - [GET](#get-registries-1)
 - [Repositories](#repositories)
     - [POST](#post-repos)
 - [Repository tags](#repository-tags)
-    - [POST](#post-repository-tags)
+    - [POST](#post-reposimage_nametags)
 - [Scan](#scan)
-    - [POST](#post-scan)
+    - [POST](#post-scan-1)
 - [Scan Results](#scan-results)
-    - [GET](#get-scan-results)    
-- [User Scans](#User-Scans)
-    - [GET](#get-user-scans)
+    - [GET](##get-user_scansscan_id)    
+- [User Scans](#user-scans)
+    - [GET](#get-user_scans)
 
 ## Registries
 #### Get /registries 
