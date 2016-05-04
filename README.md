@@ -30,7 +30,7 @@ Get scan results for the image using `scan_id` received from the startscan API
 ```
     GET https://peekr.scalock.com/scans/<scanned_id>
 ```
-
+The response is a JSON that contains scan results.
 
 ## API
 - [Scan](#scan)
@@ -70,7 +70,7 @@ Returns all repository tags.
 ```
 
 ## Scan Results
-#### GET /user_scans/:scan_id
+#### GET /scans/:scan_id
 
 ###### Description
 Will return `scan` result and `scan_results`. `scan_results` include:
@@ -80,7 +80,7 @@ Will return `scan` result and `scan_results`. `scan_results` include:
 `PROFILE_RESULTS`: image profiling at run time results. including cpu usage, network connection attempts, executable files ran and etc.
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/user_scans/4KLuSmKc3IAafUHWLR1e
+    Request URL:https://peekr.scalock.com/scans/4KLuSmKc3IAafUHWLR1e
     Request Method:GET
     
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
@@ -115,13 +115,13 @@ Will return `scan` result and `scan_results`. `scan_results` include:
 ```
 
 ## User Scans
-#### GET /user_scans
+#### GET /scans
 
 ###### Description
 Returns all user performed scans. 
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/user_scans
+    Request URL:https://peekr.scalock.com/scans
     Request Method:GET
 ```
 ###### Response (example)
