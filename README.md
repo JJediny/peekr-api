@@ -3,167 +3,42 @@ Peekr API allows running vulnerability scanning of Docker images through the fre
 
 ## Basic Usage
 ### Step 1
-Log in to Peekr [https://peekr.scalock.com](https://peekr.scalock.com) and Get user name & password from UI
+Log in to Peekr [https://peekr.scalock.com](https://peekr.scalock.com) and Get user name & API Key from UI
 ![Peekr Api](img/peekr_api.png?raw=true "Peek API")
 ### Step 2
-Set `Athorization` header Basic Auth using user name and password 
+Generate `Athorization` header through Base64(user:API Key). This header should be provided with all Peekr API REST API calls.
 ```
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
 ```
-
-### Step 3 
-#### [GET /registries](#registries)
-Get the registry id you want to use
-```
-    GET https://peekr.scalock.com/registries
-```
-
-### Step 4
+### Step 3
 #### [POST /scan](#scan)
-Scan your image if you know its repository and tag, if not use [`/repositories`](#repositories) and [`/repositories/:image_name/tags`](#repository-tags) for finding image for scanning
+Scan your image by providing image name, image tag and registry name. Don't forget to send the Authorization header as part of the request.
+Note: You can create new registries through the Peekr UI.
 ```json
-    POST https://peekr.scalock.com/scan
+    POST https://peekr.scalock.com/startscan
     
     {
-        "registry_id":"LHFxNZWfTbDAJtXMH8Am",
+        "registry_name":"Docker Hub",
         "image":"mongo",
         "tag":"latest"
     }
 ```
-### Step 5
-Get detailed scan results for the image using `scan_id` received from scanning the image
+The response is a JSON that containes the scan_id.
+
+### Step 4
+Get scan results for the image using `scan_id` received from the startscan API
 ```
-    GET https://peekr.scalock.com/user_scans/<scanned_image_id>
+    GET https://peekr.scalock.com/scans/<scanned_id>
 ```
 
 
 ## API
-- [Registries](#registries)
-    - [GET](#get-registries-1)
-- [Repositories](#repositories)
-    - [POST](#post-repos)
-- [Repository tags](#repository-tags)
-    - [POST](#post-reposimage_nametags)
 - [Scan](#scan)
     - [POST](#post-scan-1)
 - [Scan Results](#scan-results)
     - [GET](#get-user_scansscan_id)    
 - [User Scans](#user-scans)
     - [GET](#get-user_scans)
-
-## Registries
-#### Get /registries 
-
-###### Description
-
-Registries GET request return all saved registries for current user. 
-By default Docker Hub and Quay.io.
-
-###### Request (example)
-```
-    Request URL:https://peekr.scalock.com/registries
-    Request Method:GET
-    
-    Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
-```
-
-###### Response (example)
-```json
-[
-  {
-    "registry_id": "LHFxNZWfTbDAJtXMH8Am",
-    "user_id": "rDtgYHjk75UHF7el7pzP",
-    "user_name": "",
-    "registry_url": "https://index.docker.io/",
-    "registry_name": "Docker Hub"
-  },
-  {
-    "registry_id": "ANYNqESuFgoqqodRy1WT",
-    "user_id": "rDtgYHjk75UHF7el7pzP",
-    "user_name": "",
-    "registry_url": "https://quay.io/",
-    "registry_name": "Quay.io"
-  }
-]
-
-```
-
-## Repositories
-#### POST /repos 
-
-###### Description
-Will return search results for the `search` field. Repository POST will return 100 of the closest matches.
-
-###### Request (example)
-```json
-    Request URL:https://peekr.scalock.com/repos
-    Request Method:POST
-      
-    Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
-    Content-Type: application/json
-    
-    {
-        "registry_id": "LHFxNZWfTbDAJtXMH8Am", 
-        "search": "mongo"
-    }
-```
-###### Response (example)
-```json
-{
-  "num_pages": 26,
-  "num_results": 2567,
-  "page": "1",
-  "page_size": 100,
-  "query": "mongo",
-  "results": [
-    {
-      "name": "mongo",
-      "description": "MongoDB document databases provide high availability and easy scalability.",
-      "is_official": true,
-      "is_trusted": false,
-      "is_public": false
-    },   
-    {
-      "name": "mongo-express",
-      "description": "Web-based MongoDB admin interface, written with Node.js and express",
-      "is_official": true,
-      "is_trusted": false,
-      "is_public": false
-    },
-  ]
-}
-
-```
-
-## Repository Tags
-#### POST /repos/:image_name/tags 
-
-###### Description
-Returns all repository tags.
-
-###### Request (example)
-```json
-    Request URL:https://peekr.scalock.com/repos/mongo/tags
-    Request Method:POST
-      
-    Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
-    Content-Type: application/json
-    
-    {
-        "registry_id": "LHFxNZWfTbDAJtXMH8Am"
-    }
-```
-
-###### Response (example)
-```
-[
-  "2.2.7",
-  ...
-  ...
-  "3",
-  "latest"
-]
-```
 
 ## Scan
 #### POST /scan
@@ -180,7 +55,7 @@ Returns all repository tags.
     Content-Type: application/json
     
     {
-        "registry_id":"LHFxNZWfTbDAJtXMH8Am",
+        "registry_name":"Docker Hub",
         "image":"mongo",
         "tag":"latest"
     }
@@ -189,21 +64,7 @@ Returns all repository tags.
 ###### Response (example)
 ```json
 {
-  "scan_id": "4KLuSmKc3IAafUHWLR1e",
-  "image_id": "sha256:2af0a84bf165c291e2033327584a67158b5befe2fa2d739e13f6c8c71998b634",
-  "image": "mongo",
-  "tag": "latest",
-  "registry": "https://index.docker.io/",
-  "date": 1462351681,
-  "date_original": 1462351407,
-  "vulns_critical": 0,
-  "vulns_high": 22,
-  "vulns_medium": 63,
-  "vulns_low": 14,
-  "archived": false,
-  "state": "FINISHED",
-  "error_msg": "",
-  "reused_scan": false
+  "scan_id": "4KLuSmKc3IAafUHWLR1e"
 }
 
 ```
