@@ -6,20 +6,20 @@ Peekr API allows running vulnerability scanning of Docker images through the fre
 Log in to Peekr [https://peekr.scalock.com](https://peekr.scalock.com) and Get user name & API Key from UI
 ![Peekr Api](img/peekr_api.png?raw=true "Peek API")
 ### Step 2
-Generate `Athorization` header through Base64(user:API Key). This header should be provided with all Peekr API REST API calls.
+Generate `Athorization` header through Base64(user:API Key). This header should be included with all Peekr REST API calls.
 ```
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
 ```
 ### Step 3
 #### [POST /scan](#scan)
-Scan your image by providing image name, image tag and registry name. Don't forget to send the Authorization header as part of the request.
-Note: You can create new registries through the Peekr UI.
+Scan your image by providing repository name, image tag and registry name. Don't forget to send the Authorization header as part of the request.
+Note: By default Peekr comes with "Docker Hub" registry. You can add your own private registries through the Peekr UI.
 ```json
     POST https://peekr.scalock.com/startscan
     
     {
         "registry_name":"Docker Hub",
-        "image":"mongo",
+        "repository":"mongo",
         "tag":"latest"
     }
 ```
@@ -28,7 +28,7 @@ The response is a JSON that containes the scan_id.
 ### Step 4
 Get scan results for the image using `scan_id` received from the startscan API
 ```
-    GET https://peekr.scalock.com/scans/<scanned_id>
+    GET https://peekr.scalock.com/scans/<scan_id>
 ```
 The response is a JSON that contains scan results.
 
