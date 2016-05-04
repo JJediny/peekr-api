@@ -6,7 +6,7 @@ Peekr API allows running vulnerability scanning of Docker images through the fre
 Log in to Peekr [https://peekr.scalock.com](https://peekr.scalock.com) and Get user name & password from UI
 ![Peekr Api](img/peekr_api.png?raw=true "Peek API")
 ### Step 2
-Set `Athorization` header with Basic Auth 
+Set `Athorization` header Basic Auth using user name and password 
 ```json
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
 ```
@@ -19,7 +19,7 @@ Get the registry id you want to use
 ```
 
 ### Step 4
-#### [POST /scan](#scan-image)
+#### [POST /scan](#scan)
 Scan your image if you know its repository and tag, if not use [`/repositories`](#repositories) and [`/repositories/:image_name/tags`](#repository-tags) for finding image for scanning
 ```json
     POST https://peekr.scalock.com/scan
@@ -39,12 +39,12 @@ Get detailed scan results for the image using `scan_id` received from scanning t
 
 ## API
 - [Registries](#registries)
-    - [GET](#get-repositories)
+    - [GET](#get-registries)
 - [Repositories](#repositories)
     - [POST](#post-repos)
 - [Repository tags](#repository-tags)
     - [POST](#post-repository-tags)
-- [Scan](#scan-image)
+- [Scan](#scan)
     - [POST](#post-scan-image)
 - [Scan Results](#scan-results)
     - [GET](#get-scan-results)    
