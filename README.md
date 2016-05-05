@@ -11,7 +11,7 @@ Generate `Athorization` header through Base64(user:API Key). This header should 
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
 ```
 ### Step 3
-#### [POST /apiscan](#apiscan)
+#### [POST /apiscan](#scan)
 Scan your image by providing repository name, image tag and registry name. Don't forget to send the Authorization header as part of the request.
 Note: By default Peekr comes with 2 registries:
 `Docker Hub`  
@@ -23,7 +23,7 @@ Note: By default Peekr comes with 2 registries:
     {
         "registry_name":"Docker Hub",
         "image":"mongo",
-        "tag":"3.3.5" // 'latest' by default if tag not specifed
+        "tag":"3.3.5"
     }
 ```
 The response is a JSON that contains the scan_id.
@@ -37,9 +37,9 @@ If scan is finished The response is a JSON contains scan results.
 If still under scan you will get `"state": "PENDING"`
 
 ## API
-- [Scan](#apiscan)
+- [Scan](#scan)
     - [POST](#post-apiscan-1)
-- [Scan Results](#apiscan-results)
+- [Scan Results](#scan-results)
     - [GET](#get-apiscanscan_id)    
 - [User Scans](#user-scans)
     - [GET](#get-user_scans)
