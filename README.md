@@ -11,44 +11,48 @@ Generate `Athorization` header through Base64(user:API Key). This header should 
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
 ```
 ### Step 3
-#### [POST /scan](#scan)
+#### [POST /apiscan](#apiscan)
 Scan your image by providing repository name, image tag and registry name. Don't forget to send the Authorization header as part of the request.
-Note: By default Peekr comes with "Docker Hub" registry. You can add your own private registries through the Peekr UI.
+Note: By default Peekr comes with 2 registries:
+`Docker Hub`  
+`Quay.io`  
+ You can add your own private registries through the Peekr UI.
 ```json
-    POST https://peekr.scalock.com/startscan
+    POST https://peekr.scalock.com/apiscan
     
     {
         "registry_name":"Docker Hub",
-        "repository":"mongo",
-        "tag":"latest"
+        "image":"mongo",
+        "tag":"3.3.5" // 'latest' by default if tag not specifed
     }
 ```
-The response is a JSON that containes the scan_id.
+The response is a JSON that contains the scan_id.
 
 ### Step 4
-Get scan results for the image using `scan_id` received from the startscan API
+Get scan results for the image using `scan_id` received from the [/apiscan](#apiscan) API
 ```
-    GET https://peekr.scalock.com/scans/<scan_id>
+    GET https://peekr.scalock.com/apiscan/<scan_id>
 ```
-The response is a JSON that contains scan results.
+If scan is finished The response is a JSON contains scan results.
+If still under scan you will get `"state": "PENDING"`
 
 ## API
-- [Scan](#scan)
-    - [POST](#post-scan-1)
-- [Scan Results](#scan-results)
-    - [GET](#get-user_scansscan_id)    
+- [Scan](#apiscan)
+    - [POST](#post-apiscan-1)
+- [Scan Results](#apiscan-results)
+    - [GET](#get-apiscanscan_id)    
 - [User Scans](#user-scans)
     - [GET](#get-user_scans)
 
 ## Scan
-#### POST /scan
+#### POST /apiscan
 
 ###### Description
 Returns all repository tags.
 
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/scan
+    Request URL:https://peekr.scalock.com/apiscan
     Request Method:POST
     
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
@@ -64,23 +68,24 @@ Returns all repository tags.
 ###### Response (example)
 ```json
 {
-  "scan_id": "4KLuSmKc3IAafUHWLR1e"
+  "scan_id": "4KLuSmKc3IAafUHWLR1e",
+  "state": "FINISHED"
 }
 
 ```
 
 ## Scan Results
-#### GET /scans/:scan_id
+#### GET /apiscan/:scan_id
 
 ###### Description
-Will return `scan` result and `scan_results`. `scan_results` include:
-`INSPECT`: inspect data of the image (docker inspect)
-`OS_INFO`: basic OS image info
-`SCAN_RESULTS`: all vulnerabilities found nested by file/package they affect 
-`PROFILE_RESULTS`: image profiling at run time results. including cpu usage, network connection attempts, executable files ran and etc.
+Will return `scan` and `scan_results`. `scan_results` include:  
+`INSPECT`: inspect data of the image (docker inspect)  
+`OS_INFO`: basic OS image info  
+`SCAN_RESULTS`: all vulnerabilities found nested by file/package they affect   
+`PROFILE_RESULTS`: image profiling at run time results. including cpu usage, network connection attempts, executable files ran and etc.    
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/scans/4KLuSmKc3IAafUHWLR1e
+    Request URL:https://peekr.scalock.com/apiscan/4KLuSmKc3IAafUHWLR1e
     Request Method:GET
     
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
@@ -115,13 +120,13 @@ Will return `scan` result and `scan_results`. `scan_results` include:
 ```
 
 ## User Scans
-#### GET /scans
+#### GET /user_scans
 
 ###### Description
 Returns all user performed scans. 
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/scans
+    Request URL:https://peekr.scalock.com/user_scans
     Request Method:GET
 ```
 ###### Response (example)
