@@ -13,7 +13,7 @@ Generate `Athorization` header through Base64(user:API Key). This header should 
 ### Step 3
 #### [POST /apiscan](#scan)
 Scan your image by providing repository name, image tag and registry name. Don't forget to send the Authorization header as part of the request.
-Note: By default Peekr comes with 2 registries:
+Note: By default Peekr comes with 2 registries:  
 `Docker Hub`  
 `Quay.io`  
  You can add your own private registries through the Peekr UI.
