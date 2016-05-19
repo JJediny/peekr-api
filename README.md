@@ -3,7 +3,7 @@ Peekr API allows running vulnerability scanning of Docker images through the fre
 
 ## Basic Usage
 ### Step 1
-Log in to Peekr [https://peekr.scalock.com](https://peekr.scalock.com) and Get user name & API Key from UI
+Log in to Peekr [https://peekr.aquasec.com](https://peekr.aquasec.com) and Get user name & API Key from UI
 ![Peekr Api](img/peekr_api.png?raw=true "Peek API")
 ### Step 2
 Generate `Athorization` header through Base64(user:API Key). This header should be included with all Peekr REST API calls.
@@ -18,7 +18,7 @@ Note: By default Peekr comes with 2 registries:
 `Quay.io`  
  You can add your own private registries through the Peekr UI.
 ```json
-    POST https://peekr.scalock.com/apiscan
+    POST https://peekr.aquasec.com/apiscan
     
     {
         "registry_name":"Docker Hub",
@@ -31,7 +31,7 @@ The response is a JSON that contains the scan_id.
 ### Step 4
 Get scan results for the image using `scan_id` received from the [/apiscan](#apiscan) API
 ```
-    GET https://peekr.scalock.com/apiscan/<scan_id>
+    GET https://peekr.aquasec.com/apiscan/<scan_id>
 ```
 If scan is finished The response is a JSON contains scan results.
 If still under scan you will get `"state": "PENDING"`
@@ -52,7 +52,7 @@ Returns all repository tags.
 
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/apiscan
+    Request URL:https://peekr.aquasec.com/apiscan
     Request Method:POST
     
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
@@ -86,7 +86,7 @@ Will return `scan` and `scan_results`. `scan_results` include:
 `SYSCALL_RESULTS`(not for API usage): system calls performed by image during run time
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/apiscan/4KLuSmKc3IAafUHWLR1e
+    Request URL:https://peekr.aquasec.com/apiscan/4KLuSmKc3IAafUHWLR1e
     Request Method:GET
     
     Authorization: Basic dXNlcm5hbWU6YXBpdG9rZW4=
@@ -127,7 +127,7 @@ Will return `scan` and `scan_results`. `scan_results` include:
 Returns all user performed scans. 
 ###### Request (example)
 ```
-    Request URL:https://peekr.scalock.com/user_scans
+    Request URL:https://peekr.aquasec.com/user_scans
     Request Method:GET
 ```
 ###### Response (example)
