@@ -82,8 +82,6 @@ Will return `scan` and `scan_results`. `scan_results` include:
 `INSPECT`: inspect data of the image (docker inspect)  
 `OS_INFO`: basic OS image info  
 `SCAN_RESULTS`: all vulnerabilities found nested by file/package they affect   
-`PROFILE_RESULTS`(not for API usage): image profiling at run time results. including cpu usage, network connection attempts, executable files ran and etc.  
-`SYSCALL_RESULTS`(not for API usage): system calls performed by image during run time
 ###### Request (example)
 ```
     Request URL:https://peekr.aquasec.com/apiscan/4KLuSmKc3IAafUHWLR1e
